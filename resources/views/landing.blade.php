@@ -1,3 +1,4 @@
 <?php
-echo "Hello, World"
+echo $user->name;
+echo '<br>' . $user->email;
 ?>
