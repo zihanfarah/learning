@@ -14,24 +14,23 @@ class UserController extends Controller
     function index()
     {
         // $users = DB::table('users')->simplePaginate(15);
-        $users = User::all()->map(function ($users) {
-            return [
-                'id'=> $users->id,
-                'name' => $users->name,
-                'birth' => optional($users->profil)->birth,
-                'sex' => optional($users->profil)->sex
-                // 'birth' => $users->profil ? $users -> profil -> birth : '',
-                // 'sex' => $users->profil ? $users-> profil -> sex : ''
-            ];
+        // $users = User::all()->map(function ($users) {
+        //     return [
+        //         'id'=> $users->id,
+        //         'name' => $users->name,
+        //         'birth' => optional($users->profil)->birth,
+        //         'sex' => optional($users->profil)->sex
+        //         // 'birth' => $users->profil ? $users -> profil -> birth : '',
+        //         // 'sex' => $users->profil ? $users-> profil -> sex : ''
+        //     ];
 
             
-        });
+        // });
 
         // $users = User::paginate(10);
         // $paginatedUsers = $this->paginate($users, 10);
-        return view('page.user', [
-            'users' => DB::table('users')->paginate(15)
-        ]);
+        $users = User::with('profil')->paginate(10);
+        return view('page.user')->with('users', $users);
     }
 
 //     private function paginate($items, $perPage)

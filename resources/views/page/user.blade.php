@@ -32,15 +32,15 @@
                                 <tr>
                                      <td>{{ $user->id }}</td>
                                      <td>{{ $user->name }}</td>
-                                     <td>{{ $user->birth }}</td>
-                                     <td>{{ $user->sex }}</td>
+                                     <td>{{ $user->profil->birth }}</td>
+                                     <td>{{ $user->profil->sex }}</td>
                                      {{-- <td>{{ $user['id'] }}</td>
                                      <td>{{ $user['name'] }}</td>
                                      <td>{{ $user['birth'] }}</td>
                                      <td>{{ $user['sex'] }}</td> --}}
                                 </tr>
                             @endforeach
-                            {{ $user->links() }}    
+                               
                         <tfoot>
                             <tr>
                                 <th>ID</th>
@@ -57,6 +57,7 @@
                             </tr> --}}
                         </tbody>
                     </table>
+                    {{ $users->links() }} 
                 </div>
             </div>
         </div>
