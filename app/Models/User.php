@@ -43,7 +43,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function profil()
+    public function profile()
     {
         return $this->hasOne(Profile::class);
     }

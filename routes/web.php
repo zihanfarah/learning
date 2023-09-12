@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +25,16 @@ Route::get('/dashboard', function () {
 Route::get('/index', [LandingController::class, 'index'])->name('halo');
 
 Route::get('/user', [UserController::class, 'index'])->name('user');
+
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate');
+
+Route::get('/register', [UserController::class, 'create'])->name('register');
+Route::post('/register', [UserController::class, 'store']);
+// Route::get('/user/create', function () {
+//     return view('page.create', [
+//         "title" => "Create User"
+//     ]);
+// })->name('create');
+
+// Route::post();

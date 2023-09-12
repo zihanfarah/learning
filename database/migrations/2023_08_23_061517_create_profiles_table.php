@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('name');
-            $table->date('birth');
-            $table->enum('sex', ['Male', 'Female']);
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->default(1);
+            $table->date('birth')->nullable()->default('2000-12-30');
+            $table->enum('sex', ['Male', 'Female'])->default(['Male', 'Female'][rand(0, 1)]);
             $table->timestamps();
         });
     }

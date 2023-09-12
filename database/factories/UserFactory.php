@@ -17,7 +17,7 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        return [
+        return [ //id ga define karena primary udah diset di modelnya
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
@@ -36,3 +36,4 @@ class UserFactory extends Factory
         ]);
     }
 }
+//kalau misal uuid pake string, aturnya di migration tabelnya tambahin uuid

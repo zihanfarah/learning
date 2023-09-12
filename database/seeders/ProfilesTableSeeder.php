@@ -2,28 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Faker\Factory as Faker;
+use App\Models\Profile;
+use App\Models\User;
 
-class ProfilesTableSeeder extends Seeder
-{
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
-    {
-        $faker = Faker::create();
-
-        $users = DB::table('users')->get();
-
-        foreach ($users as $user) {
-            DB::table('profiles')->insert([
-                'user_id' => $user->id,
-                'birth' => $faker->date,
-                'sex' => $faker->randomElement(['male', 'female']),
-            ]);
+class ProfilesTableSeeder extends Seeder {
+    public function run() {
+        //
     }
-}
 }

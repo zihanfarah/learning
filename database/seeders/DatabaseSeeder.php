@@ -4,16 +4,19 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use App\Models\User;
+use App\Models\Profile;
 class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
      */
-    public function run(): void
+    public function run()
     {
-        \App\Models\User::factory(10)->create();
-
-        $this->call(ProfilesTableSeeder::class);
+        User::factory()
+            ->count(15)
+            ->has(Profile::factory())
+            ->create();
     }
 }
+

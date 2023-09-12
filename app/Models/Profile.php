@@ -12,7 +12,7 @@ class Profile extends Model
 
     protected $fillable = ['birth', 'sex'];
     
-    public function user()
+    public function users()
     {
         return $this->belongsTo(User::class);
 

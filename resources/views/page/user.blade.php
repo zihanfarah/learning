@@ -3,6 +3,8 @@
 @section('title', 'User')
 
 @section('content')
+{{-- <button href="{{route('create')}}">Tambah User</button> --}}
+<a href="{{route('register')}}" class="btn btn-secondary">Tambah User</a>
     <div class="container-fluid">
 
         <!-- Page Heading -->
@@ -32,15 +34,10 @@
                                 <tr>
                                      <td>{{ $user->id }}</td>
                                      <td>{{ $user->name }}</td>
-                                     <td>{{ $user->profil->birth }}</td>
-                                     <td>{{ $user->profil->sex }}</td>
-                                     {{-- <td>{{ $user['id'] }}</td>
-                                     <td>{{ $user['name'] }}</td>
-                                     <td>{{ $user['birth'] }}</td>
-                                     <td>{{ $user['sex'] }}</td> --}}
+                                     <td>{{ $user->profile->birth }}</td>
+                                     <td>{{ $user->profile->sex}}</td>
                                 </tr>
                             @endforeach
-                               
                         <tfoot>
                             <tr>
                                 <th>ID</th>
@@ -49,12 +46,6 @@
                                 <th>Sex</th>
                             </tr>
                         </tfoot>
-                            {{-- <tr>
-                                <td>Jena Gaines</td>
-                                <td>Office Manager</td>
-                                <td>London</td>
-                                <td>30</td>
-                            </tr> --}}
                         </tbody>
                     </table>
                     {{ $users->links() }} 
