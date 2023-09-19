@@ -47,9 +47,7 @@ class UserController extends Controller
             'sex' => $request->sex
         ]);
 
-        // $request->session()->flash('success', 'Registration successful! Please log in.');
-
-        // dd('duarr');
+        Alert::success('Success', 'User baru berhasil dibuat');
 
         return redirect('/user');
     }
