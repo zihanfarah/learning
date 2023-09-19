@@ -3,8 +3,7 @@
 @section('title', 'Register') 
 
 @section('content')
-    <form action="/register" method="POST"> 
-        {{-- {{ route('form.submit') }} --}}
+    <form action="{{ route('register')}}" method="POST"> 
     @csrf
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Input</h6>
@@ -17,6 +16,17 @@
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="email" name="email" value="{{ old('email')}}" placeholder="Enter your email">
+            </div>
+            <div class="mb-3">
+                <label for="birth" class="form-label">Birthday</label>
+                <input type="date" class="form-control" id="birth" name="birth" value="{{ old('birth')}}">
+            </div>
+            <div class="mb-3">
+                <label for="sex" class="form-label">Sex</label>
+                <select name="sex" id="sex" class="form-select" aria-label="Default select example">
+                    <option value="{{ __("Male") }}">Male</option>
+                    <option value="{{ __("Female") }}">Female</option>
+                </select>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>

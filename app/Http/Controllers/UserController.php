@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -29,51 +30,92 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
-        // dd($request->all());
         $validated = $request->validate([
             'name' => 'required|max:255 ',
-            'email' => 'required|unique:users|email',
-            'password' => 'required|confirmed|min:8|max:255'
+            'email' => 'required|unique:users,email|email',
+            'password' => 'required|confirmed|min:8|max:255',
+            'birth' => 'required',
+            'sex' => 'required'
         ]);
 
-        User::create($validated);
+        $user = User::create($validated);
+
+        $user->profile()->create([
+            'birth' => $request->birth,
+            'sex' => $request->sex
+        ]);
 
         // $request->session()->flash('success', 'Registration successful! Please log in.');
 
         // dd('duarr');
 
-        return redirect('/login');
+        return redirect('/user');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
-        //
+        return view('page.show', ['user' => $user]);
     }
 
    
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        //
+        return view('page.user-edit', ['user' => $user]);
     }
 
     /**
      * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    */
+    public function update(User $user, Request $request) // yang mau diupdate siapa (user)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|confirmed|min:8|max:255',
+            'birth' => 'required',
+            'sex' => 'nullable'
+        ]);
+        // dd('duarr');
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        $user->profile()->update([
+            'birth' => $request->birth,
+            'sex' => $request->sex,
+        ]);
+
+        Alert::success('Success', 'User berhasil diupdate');
+
+        return redirect()->route('user');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        $title = 'Delete User';
+        $text = 'Are you sure you want to delete this user?';
+
+        Alert::warning($title, $text)
+            ->showConfirmButton('Yes, delete it!', '#d33')
+            ->showCancelButton('No, cancel', '#3085d6', [
+                'onBeforeOpen' => 'function (modalElement) {
+                    modalElement.querySelector("button.swal-button.swal-button--cancel").addEventListener("click", function (e) {
+                        e.preventDefault();
+                        Swal.close();
+                    });
+                }'
+            ]);
+
+        return redirect('/user');
     }
 }

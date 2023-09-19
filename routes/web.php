@@ -31,6 +31,14 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('authentic
 
 Route::get('/register', [UserController::class, 'create'])->name('register');
 Route::post('/register', [UserController::class, 'store']);
+
+Route::get('/showing/{user}', [UserController::class, 'show'])->name('user.show');
+
+Route::get('/showing/{user}/edit', [UserController::class, 'edit'])->name('edit');
+Route::put('/showing/{user}/update', [UserController::class, 'update'])->name('update');
+
+Route::delete('/showing/user/{user}/destroy', [UserController::class, 'destroy'])->name('delete');
+
 // Route::get('/user/create', function () {
 //     return view('page.create', [
 //         "title" => "Create User"

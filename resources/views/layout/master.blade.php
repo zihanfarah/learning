@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset ('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    
  
 </head>
 
@@ -83,6 +84,7 @@
         </div>
     </div>
 
+    @include('sweetalert::alert')
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset ('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset ('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

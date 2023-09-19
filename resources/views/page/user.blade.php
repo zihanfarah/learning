@@ -4,7 +4,7 @@
 
 @section('content')
 {{-- <button href="{{route('create')}}">Tambah User</button> --}}
-<a href="{{route('register')}}" class="btn btn-secondary">Tambah User</a>
+<a href="{{route('register', 'user')}}" class="btn btn-secondary">Tambah User</a>
     <div class="container-fluid">
 
         <!-- Page Heading -->
@@ -27,15 +27,24 @@
                                 <th>Name</th>
                                 <th>Birth</th>
                                 <th>Sex</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($users as $user)
                                 <tr>
-                                     <td>{{ $user->id }}</td>
-                                     <td>{{ $user->name }}</td>
-                                     <td>{{ $user->profile->birth }}</td>
-                                     <td>{{ $user->profile->sex}}</td>
+                                        <td>{{ $user->id }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->profile->birth }}</td>
+                                        <td>{{ $user->profile->sex}}</td>
+                                        <td><a class="btn btn-warning mx-2" href="{{ route('user.show', $user->id )}}">Detail</a><a class="btn btn-primary mx-2" href="{{ route('edit', $user->id )}}">Edit</a>
+                                        <form action="{{ route('delete', $user->id)}}" 
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger" data-confirm-delete="true">Delete</button>
+                                        </form>
+                                    </td>   
                                 </tr>
                             @endforeach
                         <tfoot>
@@ -44,6 +53,7 @@
                                 <th>Name</th>
                                 <th>Birth</th>
                                 <th>Sex</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                         </tbody>

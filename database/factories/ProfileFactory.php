@@ -17,7 +17,8 @@ class ProfileFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'birth' => $this->faker->date(),
+            'sex' => $this->faker->randomElement(['Male', 'Female']),
         ];
     }
 }
