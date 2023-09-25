@@ -14,6 +14,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('profile')->simplePaginate(10);
+        confirmDelete('Delete User', 'Are you sure to delete this user?');
         return view('page.user')->with('users', $users);
     }
 
@@ -100,20 +101,21 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $title = 'Delete User';
-        $text = 'Are you sure you want to delete this user?';
+        // $title = 'Delete User';
+        // $text = 'Are you sure you want to delete this user?';
 
-        Alert::warning($title, $text)
-            ->showConfirmButton('Yes, delete it!', '#d33')
-            ->showCancelButton('No, cancel', '#3085d6', [
-                'onBeforeOpen' => 'function (modalElement) {
-                    modalElement.querySelector("button.swal-button.swal-button--cancel").addEventListener("click", function (e) {
-                        e.preventDefault();
-                        Swal.close();
-                    });
-                }'
-            ]);
-
-        return redirect('/user');
+        // Alert::warning($title, $text)
+        //     ->showConfirmButton('Yes, delete it!', '#d33')
+        //     ->showCancelButton('No, cancel', '#3085d6', [
+        //         'onBeforeOpen' => 'function (modalElement) {
+        //             modalElement.querySelector("button.swal-button.swal-button--cancel").addEventListener("click", function (e) {
+        //                 e.preventDefault();
+        //                 Swal.close();
+        //             });
+        //         }'
+        //     ]);
+        // confirmDelete();
+        $user->delete();
+        return redirect()->route('user');
     }
 }

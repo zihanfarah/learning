@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\LandingController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,33 +15,43 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/dashboard', function () {
-    return view('page.dashboard', [
-        "title" => "Dashboard"
-    ]);
-})->name('dashboard');
-
-Route::get('/index', [LandingController::class, 'index'])->name('halo');
-
-Route::get('/user', [UserController::class, 'index'])->name('user');
-
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate');
-
-Route::get('/register', [UserController::class, 'create'])->name('register');
-Route::post('/register', [UserController::class, 'store']);
-
-Route::get('/showing/{user}', [UserController::class, 'show'])->name('user.show');
-
-Route::get('/showing/{user}/edit', [UserController::class, 'edit'])->name('edit');
-Route::put('/showing/{user}/update', [UserController::class, 'update'])->name('update');
-
-Route::delete('/showing/user/{user}/destroy', [UserController::class, 'destroy'])->name('delete');
-
-// Route::get('/user/create', function () {
-//     return view('page.create', [
-//         "title" => "Create User"
+Route::get('/', function () {
+    return view('welcome');
+});
+// Route::get('/dashboard', function () {
+//     return view('page.dashboard', [
+//         "title" => "Dashboard"
 //     ]);
-// })->name('create');
+// })->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('page.dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::post();
+Route::get('/slicing', function () {
+    return view('page.login');
+})->middleware(['auth', 'verified'])->name('slicing');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/index', [LandingController::class, 'index'])->name('halo');
+
+    Route::get('/user', [UserController::class, 'index'])->name('user');
+
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate');
+
+    Route::get('/register', [UserController::class, 'create'])->name('register');
+    Route::post('/register', [UserController::class, 'store']);
+
+    Route::get('/showing/{user}', [UserController::class, 'show'])->name('user.show');
+
+    Route::get('/showing/{user}/edit', [UserController::class, 'edit'])->name('edit');
+    Route::put('/showing/{user}/update', [UserController::class, 'update'])->name('update');
+
+    Route::delete('/showing/user/{user}/destroy', [UserController::class, 'destroy'])->name('delete');
+});
+
+require __DIR__.'/auth.php';
+

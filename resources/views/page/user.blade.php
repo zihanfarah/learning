@@ -33,17 +33,15 @@
                         <tbody>
                             @foreach($users as $user)
                                 <tr>
-                                        <td>{{ $user->id }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->profile->birth }}</td>
-                                        <td>{{ $user->profile->sex}}</td>
-                                        <td><a class="btn btn-warning mx-2" href="{{ route('user.show', $user->id )}}">Detail</a><a class="btn btn-primary mx-2" href="{{ route('edit', $user->id )}}">Edit</a>
-                                        <form action="{{ route('delete', $user->id)}}" 
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" data-confirm-delete="true">Delete</button>
-                                        </form>
+                                    <td>{{ $user->id }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->profile->birth }}</td>
+                                    <td>{{ $user->profile->sex}}</td>
+                                    <td>
+                                        <a class="btn btn-warning mx-2" href="{{ route('user.show', $user->id )}}">Detail</a>
+                                        <a class="btn btn-primary mx-2" href="{{ route('edit', $user->id )}}">Edit</a>
+                                        
+                                        <a class="btn btn-danger mx-2" data-confirm-delete="true" href="{{ route('delete', $user->id )}}">Delete</a>
                                     </td>   
                                 </tr>
                             @endforeach
@@ -62,6 +60,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 @endsection

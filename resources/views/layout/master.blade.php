@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset ('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset ('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css')}}">
     
  
 </head>
@@ -78,7 +79,11 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    {{--  --}}
+                    <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" clbuttonss="btn btn-primary" href="#">Logout</a>
+                        </form>
                 </div>
             </div>
         </div>
